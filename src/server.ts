@@ -4,6 +4,7 @@ import fastify from "fastify";
 import {z} from 'zod';
 //criar evento:
 import { PrismaClient } from "@prisma/client";
+import {generateSlug} from "../utills/generate-slug"
 // REST -api retorna dados via JSON
 //Métodos HTTP ...
 //Corpo da requisição (request body, post/put)
@@ -31,13 +32,19 @@ app.post('/events', async (request, reply) =>{
     //verifica se o conteúdo em body segue a estrutura de
     //createEventSchema com o title, details e maximumAttendees
 
+
+    const slug = generateSlug(data.title)
+
+
+
+
     const event = await prisma.event.create({
         data: {
             // criar as colunas do db
             title: data.title,
             details: data.details,
             maximumAttendees: data.maximumAttendees,
-            slug: new Date().toISOString(),
+            slug,
         },
     })
 
