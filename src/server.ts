@@ -9,17 +9,16 @@ import fastify from "fastify";
 //Parâmetros de rota (route params, get,put,delete)
 //Cabeçalhos (headers, informmações 'fixas' do backend) 
 
+//SQLite é salvo em arquivos físicos
 
 const app = fastify()
 
 
-app.get('/',()=>{
+app.post('/events', (request, reply) =>{
+
+    console.log(request.body)
+
     return "Hello NLW Unite"
-})
-
-
-app.get('/users',()=>{
-    return "Hello NLW Unite Teste"
 })
 
 
@@ -38,3 +37,4 @@ app.listen({port: 3333}).then(()=>{
 })
 //alguma coisa que pode demorar é uma promise
 //then ativa quando a função carregar
+//db relacional

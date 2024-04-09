@@ -1,0 +1,10 @@
+POST http://localhost:3333/events
+Content-Type: application/json 
+//cabeçalho
+//informa o tipo de conteudo para a api
+
+{
+    "title": "Unite Summit",
+    "details": "Um evento para quem é apaixonado por programação",
+    "maximumAttendees": 100
+}
