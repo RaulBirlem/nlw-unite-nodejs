@@ -3,6 +3,7 @@
 import fastify from "fastify";
 import {serializerCompiler, validatorCompiler, ZodTypeProvider} from 'fastify-type-provider-zod'
 import { createEvent } from "./routes/create-event";
+import { registerForEvent } from "./routes/register-for-event";
 
 // REST -api retorna dados via JSON
 //Métodos HTTP ...
@@ -19,6 +20,7 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.register(createEvent)
+app.register(registerForEvent)
 
 
 
