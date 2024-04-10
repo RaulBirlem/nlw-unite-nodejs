@@ -30,3 +30,12 @@ GET http://localhost:3333/events/e1afd391-a11a-4e3a-a09b-4b23938498ca
 ###
 
 GET http://localhost:3333/attendees/1/badge
+
+###
+
+GET http://localhost:3333/attendees/4/check-in
+
+
+###
+
+GET http://localhost:3333/events/e1afd391-a11a-4e3a-a09b-4b23938498ca/attendees?query=arthur
