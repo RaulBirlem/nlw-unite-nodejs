@@ -1,11 +1,13 @@
 // ORM  Prisma
 
-import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUI from "@fastify/swagger-ui";
-
 // fastify - URL microframework
 import fastify from "fastify";
-import {serializerCompiler, validatorCompiler, jsonSchemaTransform} from 'fastify-type-provider-zod'
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
+import fastifyCors from "@fastify/cors";
+
+
+import {serializerCompiler, validatorCompiler, jsonSchemaTransform, ZodTypeProvider} from 'fastify-type-provider-zod'
 import { createEvent } from "./routes/create-event";
 import { registerForEvent } from "./routes/register-for-event";
 import { getEvent } from "./routes/get-event";
@@ -24,7 +26,11 @@ import { errorHandler } from "./error-handler";
 
 //SQLite é salvo em arquivos físicos
 
-export const app = fastify()
+export const app = fastify().withTypeProvider<ZodTypeProvider>()
+
+app.register(fastifyCors, {
+    origin: '*', // qualquer URL pode acessar a api
+})
 
 app.register(fastifySwagger, {
     swagger: {
@@ -59,7 +65,7 @@ app.setErrorHandler(errorHandler)
 
 
 
-app.listen({port: 3333}).then(()=>{
+app.listen({port: 3333, host:'0.0.0.0'}).then(()=>{
     console.log("HTTP server running!")
 })
 //alguma coisa que pode demorar é uma promise
