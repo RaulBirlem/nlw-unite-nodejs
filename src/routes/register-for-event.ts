@@ -2,6 +2,7 @@ import { FastifyInstance } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import z from "zod";
 import { prisma } from "../lib/prisma";
+import { BadRequest } from "./_errors/bad-request";
 
 export async function registerForEvent(app: FastifyInstance) {
     app
@@ -42,7 +43,7 @@ export async function registerForEvent(app: FastifyInstance) {
     //se o email já tiver cadastro no evento retorna um alerta
 
             if(attendeeFromEmail !== null) {
-                throw new Error("Este email já está cadastrado!")
+                throw new BadRequest("Este email já está cadastrado!")
             }
 
     //  limitar os participantes em um evento
@@ -64,7 +65,7 @@ export async function registerForEvent(app: FastifyInstance) {
             
             if(event?.maximumAttendees && amountOfAttendeesForEvent >= event?.maximumAttendees) {
     //se o evento tiver limite de participantes e ele ultrapassar o limite retorna um alerta
-                throw new Error("O número máximo de participantes já foi atendido!")
+                throw new BadRequest("O número máximo de participantes já foi atendido!")
             }
 
 

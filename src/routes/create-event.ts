@@ -3,6 +3,7 @@ import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { generateSlug } from '../utills/generate-slug';
 import { prisma } from '../lib/prisma';
 import { FastifyInstance } from 'fastify';
+import { BadRequest } from './_errors/bad-request';
 
 
 
@@ -16,7 +17,9 @@ export async function createEvent(app: FastifyInstance) {
                 tags:['events'], // swagger ui
         //dessa forma o prórpio fastify faz a validação dos dados
                 body:z.object({
-                    title: z.string().min(4),
+                    title: z.string().min(4), 
+        //para indicar que o texto precisa ser string : {invalid_type_error:'O título precisa ser um texto '} dentro de string()
+
                     details: z.string().nullable(),
                     maximumAttendees: z.number().int().positive().nullable(),
                 }),
@@ -51,7 +54,7 @@ export async function createEvent(app: FastifyInstance) {
         })
         
         if(eventWithSameSlug !== null){
-            throw new Error("Já existe evento com esse título.")
+            throw new BadRequest("Já existe evento com esse título.")
         }
         
         const event = await prisma.event.create({

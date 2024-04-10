@@ -4,7 +4,7 @@ Content-Type: application/json
 //informa o tipo de conteudo para a api
 
 {
-    "title": "Novo evento 2",
+    "title":  2,
     "details": null,
     "maximumAttendees": 1
 }

@@ -13,6 +13,7 @@ import { getAttendeeBadge } from "./routes/get-attendee-badge";
 import { checkIn } from "./routes/check-in";
 import { getEventAttendees } from "./routes/get-event-attendees";
 import { json } from "stream/consumers";
+import { errorHandler } from "./error-handler";
 
 // REST -api retorna dados via JSON
 //Métodos HTTP ...
@@ -54,7 +55,7 @@ app.register(getAttendeeBadge)
 app.register(checkIn)
 app.register(getEventAttendees)
 
-
+app.setErrorHandler(errorHandler)
 
 
 
