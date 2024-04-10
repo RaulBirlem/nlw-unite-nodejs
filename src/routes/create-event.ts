@@ -12,6 +12,8 @@ export async function createEvent(app: FastifyInstance) {
         .withTypeProvider<ZodTypeProvider>()
         .post('/events', {
             schema:{
+                summary:"Create an event", // swagger ui
+                tags:['events'], // swagger ui
         //dessa forma o prórpio fastify faz a validação dos dados
                 body:z.object({
                     title: z.string().min(4),

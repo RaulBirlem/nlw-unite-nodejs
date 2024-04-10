@@ -13,6 +13,8 @@ export async function checkIn(app: FastifyInstance) {
         .withTypeProvider<ZodTypeProvider>()
         .get('/attendees/:attendeeId/check-in', {
             schema:{
+                summary:"Check-in an attendee", // swagger ui
+                tags:['check-ins'], // swagger ui
                 params: z.object({
                     attendeeId: z.coerce.number().int()
                 }),

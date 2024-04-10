@@ -1,13 +1,18 @@
 // ORM  Prisma
+
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUI from "@fastify/swagger-ui";
+
 // fastify - URL microframework
 import fastify from "fastify";
-import {serializerCompiler, validatorCompiler, ZodTypeProvider} from 'fastify-type-provider-zod'
+import {serializerCompiler, validatorCompiler, jsonSchemaTransform} from 'fastify-type-provider-zod'
 import { createEvent } from "./routes/create-event";
 import { registerForEvent } from "./routes/register-for-event";
 import { getEvent } from "./routes/get-event";
 import { getAttendeeBadge } from "./routes/get-attendee-badge";
 import { checkIn } from "./routes/check-in";
 import { getEventAttendees } from "./routes/get-event-attendees";
+import { json } from "stream/consumers";
 
 // REST -api retorna dados via JSON
 //Métodos HTTP ...
@@ -19,6 +24,25 @@ import { getEventAttendees } from "./routes/get-event-attendees";
 //SQLite é salvo em arquivos físicos
 
 export const app = fastify()
+
+app.register(fastifySwagger, {
+    swagger: {
+    //todos os dados enviados e recebidos pela api serão em json
+        consumes: ['application/json'],
+        produces:['application/json'],
+        info:{
+            title:'pass.in',
+            description:"Especificações da API para o back-end da aplicação pass.in construída durante o NLW Unite da Rocketseat.",
+            version:'1.0.0'
+        },
+    },
+    transform: jsonSchemaTransform,
+//transforma em json os dados criados de schema 
+})
+
+app.register(fastifySwaggerUI, {
+    routePrefix:'/docs',
+})
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);

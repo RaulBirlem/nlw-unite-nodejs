@@ -12,6 +12,8 @@ export async function getEventAttendees(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .get('/events/:eventId/attendees', {
         schema: {
+            summary:"Get event attendees", // swagger ui
+            tags:['events'], // swagger ui
             params: z.object({
                 eventId: z.string().uuid(),
             }),

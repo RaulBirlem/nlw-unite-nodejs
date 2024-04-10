@@ -8,6 +8,8 @@ export async function registerForEvent(app: FastifyInstance) {
         .withTypeProvider<ZodTypeProvider>()
         .post('/events/:eventId/attendees', {
             schema: {
+                summary:"Register an attendee", // swagger ui
+                tags:['attendees'], // swagger ui
                 body: z.object({
                     name: z.string().min(4),
                     email: z.string().email(),
@@ -42,10 +44,6 @@ export async function registerForEvent(app: FastifyInstance) {
             if(attendeeFromEmail !== null) {
                 throw new Error("Este email já está cadastrado!")
             }
-
-
-
-
 
     //  limitar os participantes em um evento
 

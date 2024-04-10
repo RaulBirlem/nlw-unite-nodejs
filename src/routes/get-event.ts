@@ -7,21 +7,25 @@ export async function getEvent(app: FastifyInstance) {
     .withTypeProvider<ZodTypeProvider>()
     .get('/events/:eventId', {
         schema: {
+            summary:"Get an event", // swagger ui
+            tags:['events'], // swagger ui
             params: z.object({
                 eventId: z.string().uuid(),
             }),
             response:{
     //tipagem de rota
-                200: {
-                    id: z.string().uuid(),
-                    title: z.string(),
-                    slug: z.string(),
-                    details: z.string().nullable(),
-                    maximumAttendees: z.number().int().nullable(),
-                    attendeesAmount: z.number().int(),
-                }
-            },
-        }
+                200: z.object({
+                    event:z.object({
+                        id: z.string().uuid(),
+                        title: z.string(),
+                        slug: z.string(),
+                        details: z.string().nullable(),
+                        maximumAttendees: z.number().int().nullable(),
+                        attendeesAmount: z.number().int(),
+                    })
+                }),
+            }
+        } 
     }, async(request, reply) => {
         const { eventId} = request.params
 
