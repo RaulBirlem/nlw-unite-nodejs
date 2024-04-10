@@ -4,19 +4,29 @@ Content-Type: application/json
 //informa o tipo de conteudo para a api
 
 {
-    "title": "Unite Summit",
-    "details": "Um evento para quem é apaixonado por programação",
-    "maximumAttendees": 100
+    "title": "Novo evento 2",
+    "details": null,
+    "maximumAttendees": 1
 }
 
 
 ###
 
 
-POST http://localhost:3333/events/76f8d05c-5ad9-41f3-9d31-8180928cc31e/attendees
+POST http://localhost:3333/events/e1afd391-a11a-4e3a-a09b-4b23938498ca/attendees
 Content-Type: application/json 
 
 {
     "name":"Arthur",
-    "email":"arthuralt@gmail.com.br"
+    "email":"arthur3@gmail.com.br"
 }
+
+
+
+###
+
+GET http://localhost:3333/events/e1afd391-a11a-4e3a-a09b-4b23938498ca
+
+###
+
+GET http://localhost:3333/attendees/1/badge
